@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Web.Mvc;
+
 using DancingGoat.Areas.Admin.Models;
 
 namespace DancingGoat.Infrastructure
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class SelfConfigActionFilterAttribute : ActionFilterAttribute
+    public class SelfConfigActionFilter : ActionFilterAttribute
     {
+        private readonly IProjectContext _projectContext;
+
+        public SelfConfigActionFilter() : this(DependencyResolver.Current.GetService<IProjectContext>())
+        {
+        }
+
+        public SelfConfigActionFilter(IProjectContext projectContext)
+        {
+            _projectContext = projectContext;
+        }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
             DateTime? subscriptionExpiresAt = Areas.Admin.AppSettingProvider.SubscriptionExpiresAt;
-            Guid? projectId = Areas.Admin.AppSettingProvider.ProjectId;
+            Guid? projectId = _projectContext.GetProjectId();
 
             if (!projectId.HasValue)
             {

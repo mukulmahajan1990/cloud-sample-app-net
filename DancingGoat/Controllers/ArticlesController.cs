@@ -1,15 +1,20 @@
-﻿using DancingGoat.Models;
-using KenticoCloud.Delivery;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
+using DancingGoat.Models;
+using DancingGoat.Infrastructure;
+
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
     public class ArticlesController : ControllerBase
     {
+        public ArticlesController(IProjectContext projectContext) : base(projectContext)
+        {
+        }
+
         public async Task<ActionResult> Index()
         {
             var response = await client.GetItemsAsync<Article>(

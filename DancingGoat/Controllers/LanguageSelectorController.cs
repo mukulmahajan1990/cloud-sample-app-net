@@ -1,18 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
+
+using DancingGoat.Infrastructure;
 using DancingGoat.Models;
+
 using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
     public class LanguageSelectorController : ControllerBase
     {
+        public LanguageSelectorController(IProjectContext projectContext) : base(projectContext)
+        {
+        }
+
         public async Task<ActionResult> Index(Guid id, string originalAction, string type, string originalController)
         {
             // Specific item is not selected, url will not be changed after redirect

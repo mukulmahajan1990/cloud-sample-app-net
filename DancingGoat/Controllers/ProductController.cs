@@ -1,14 +1,20 @@
-﻿using KenticoCloud.Delivery;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
+using DancingGoat.Infrastructure;
+
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
     public class ProductController : ControllerBase
     {
+        public ProductController(IProjectContext projectContext) : base(projectContext)
+        {
+        }
+
         public async Task<ActionResult> Detail(string urlSlug)
         {
             var item = (await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();

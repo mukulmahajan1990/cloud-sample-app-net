@@ -1,14 +1,21 @@
-﻿using DancingGoat.Models;
-using KenticoCloud.Delivery;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
+using DancingGoat.Infrastructure;
+using DancingGoat.Models;
+
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
     public class BrewersController : ControllerBase
     {
+        public BrewersController(IProjectContext projectContext) : base(projectContext)
+        {
+        }
+
         public async Task<ActionResult> Index()
         {
             var itemsTask = client.GetItemsAsync<Brewer>(

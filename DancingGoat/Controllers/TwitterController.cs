@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 using DancingGoat.Models;
-
-using Newtonsoft.Json.Linq;
 
 namespace DancingGoat.Controllers
 {

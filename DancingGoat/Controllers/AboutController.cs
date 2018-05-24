@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
+using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 
 using KenticoCloud.ContentManagement.Helpers.Models;
@@ -11,6 +12,10 @@ namespace DancingGoat.Controllers
 {
     public class AboutController : ControllerBase
     {
+        public AboutController(IProjectContext projectContext) : base(projectContext)
+        {
+        }
+
         public async Task<ActionResult> Index()
         {
             var response = await client.GetItemAsync<AboutUs>("about_us");

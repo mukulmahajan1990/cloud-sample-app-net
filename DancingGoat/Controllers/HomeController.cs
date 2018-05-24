@@ -3,7 +3,9 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using DancingGoat.Areas.Admin;
+using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 
 using KenticoCloud.Personalization;
@@ -17,7 +19,7 @@ namespace DancingGoat.Controllers
         private const string VISITOR_NOT_FOUND_CODE = "CR404.2";
         private readonly PersonalizationClient personalizationClient;
 
-        public HomeController()
+        public HomeController(IProjectContext projectContext) : base(projectContext)
         {
             // Disable personalization when PersonalizationToken is not set
             var personalizationToken = ConfigurationManager.AppSettings["PersonalizationToken"];
